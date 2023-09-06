@@ -1,0 +1,31 @@
+{
+  "name": "graphql-server-ecommerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "codegen": "graphql-codegen --config .graphqlrc.ts",
+    "postinstall": "pnpm codegen",
+    "dev": "tsx watch src/server.ts",
+    "seed": "tsx prisma/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eddeee888/gcg-typescript-resolver-files": "^0.6.0",
+    "@faker-js/faker": "^8.0.2",
+    "@graphql-codegen/cli": "^5.0.0",
+    "graphql": "^16.8.0",
+    "prettier": "^3.0.3",
+    "prisma": "^5.2.0",
+    "tsx": "^3.12.8",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.9.3",
+    "@prisma/client": "^5.2.0",
+    "graphql-scalars": "^1.22.2"
+  },
+  "type": "module"
+}
