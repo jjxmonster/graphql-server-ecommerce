@@ -14,6 +14,7 @@ for (let i = 0; i < productsCount; i++) {
       slug: faker.helpers.slugify(name).toLowerCase(),
       description: faker.commerce.productDescription(),
       price: Number(faker.commerce.price()) * 100,
+      image: faker.image.url(),
     },
   });
   console.log(`Created product with id: ${createdProduct.id}`);
