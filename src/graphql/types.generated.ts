@@ -33,17 +33,14 @@ export type Scalars = {
 
 export type Category = {
   __typename?: "Category";
-  description?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["ID"]["output"];
   name: Scalars["String"]["output"];
   products: Array<Product>;
-  slug: Scalars["String"]["output"];
 };
 
 export type CategoryInput = {
   description?: InputMaybe<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
-  slug: Scalars["String"]["input"];
 };
 
 export type Collection = {
@@ -258,8 +255,8 @@ export type DirectiveResolverFn<
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Category: ResolverTypeWrapper<Category>;
-  String: ResolverTypeWrapper<Scalars["String"]["output"]>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
+  String: ResolverTypeWrapper<Scalars["String"]["output"]>;
   CategoryInput: CategoryInput;
   Collection: ResolverTypeWrapper<Collection>;
   CollectionInput: CollectionInput;
@@ -274,8 +271,8 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Category: Category;
-  String: Scalars["String"]["output"];
   ID: Scalars["ID"]["output"];
+  String: Scalars["String"]["output"];
   CategoryInput: CategoryInput;
   Collection: Collection;
   CollectionInput: CollectionInput;
@@ -292,11 +289,6 @@ export type CategoryResolvers<
   ParentType extends
     ResolversParentTypes["Category"] = ResolversParentTypes["Category"],
 > = {
-  description?: Resolver<
-    Maybe<ResolversTypes["String"]>,
-    ParentType,
-    ContextType
-  >;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   products?: Resolver<
@@ -304,7 +296,6 @@ export type CategoryResolvers<
     ParentType,
     ContextType
   >;
-  slug?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

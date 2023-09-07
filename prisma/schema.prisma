@@ -8,10 +8,10 @@ datasource db {
 }
 
 model Product {
-  id          Int            @id @default(autoincrement())
-  name        String
+  id          String       @id @default(cuid())
+  name        String  
   slug        String
-  description String?
+  description String
   price       Int
   image       String
   categories  Category[]
@@ -22,23 +22,19 @@ model Product {
 }
 
 model Collection {
-  id        Int      @id @default(autoincrement())
-  name      String
-  description String?
-  products  Product[]
+  id          String       @id @default(cuid())
+  name        String
+  products    Product[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Category {
-  id       Int      @id @default(autoincrement())
-  name     String
-  slug     String
-  description String?
-  products Product[]
+  id          String       @id @default(cuid())
+  name        String
+  products    Product[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
