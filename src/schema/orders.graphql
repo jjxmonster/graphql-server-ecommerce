@@ -1,0 +1,24 @@
+enum Status {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+type Order {
+  id: ID!
+  total: Int!
+  status: Status!
+  orderItems: [OrderItem!]!
+}
+
+type Query {
+  getOrder(id: ID!): Order
+}
+
+type Mutation {
+  createOrder(total: Int!, status: Status!): Order
+  updateOrder(id: ID!, status: Status!): Order
+  deleteOrder(id: ID!): ID
+}

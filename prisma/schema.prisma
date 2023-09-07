@@ -9,32 +9,57 @@ datasource db {
 
 model Product {
   id          String       @id @default(cuid())
-  name        String  
+  name        String
   slug        String
   description String
   price       Int
   image       String
   categories  Category[]
   collections Collection[]
+  orderItems  OrderItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Collection {
-  id          String       @id @default(cuid())
-  name        String
-  products    Product[]
+  id       String    @id @default(cuid())
+  name     String
+  products Product[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Category {
-  id          String       @id @default(cuid())
-  name        String
-  products    Product[]
+  id       String    @id @default(cuid())
+  name     String
+  products Product[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  quantity  Int
+  product   Product @relation(fields: [productId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  orderId   String
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  total      Int
+  status     Status
+  orderItems OrderItem[]
+}
+
+enum Status {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELED
 }

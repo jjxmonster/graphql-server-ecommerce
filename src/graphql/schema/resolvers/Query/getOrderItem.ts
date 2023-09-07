@@ -1,29 +1,29 @@
 import { prisma } from "../../../../db";
 import type { QueryResolvers } from "./../../../types.generated";
-export const category: NonNullable<QueryResolvers["category"]> = async (
+export const getOrderItem: NonNullable<QueryResolvers["getOrderItem"]> = async (
   _parent,
   _arg,
   _ctx,
 ) => {
-  const category = await prisma.category.findUnique({
+  const orderItem = await prisma.orderItem.findUnique({
     where: {
       id: _arg.id,
     },
     include: {
-      products: true,
+      product: true,
     },
   });
 
-  if (!category) {
+  if (!orderItem) {
     return null;
   }
 
   return {
-    ...category,
-    products: category.products.map((product) => ({
-      ...product,
+    ...orderItem,
+    product: {
+      ...orderItem.product,
       categories: [],
       collections: [],
-    })),
+    },
   };
 };
