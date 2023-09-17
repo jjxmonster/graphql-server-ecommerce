@@ -10,9 +10,9 @@ type Query {
 }
 
 type Mutation {
-  createCategory(input: CategoryInput!): Category
-  updateCategory(id: ID!, input: CategoryInput!): Category
-  deleteCategory(id: ID!): Category
+  categoryCreate(input: CategoryInput!): Category
+  categoryUpdate(id: ID!, input: CategoryInput!): Category
+  categoryDelete(id: ID!): Category
 }
 
 input CategoryInput {

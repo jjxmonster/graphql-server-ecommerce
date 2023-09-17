@@ -10,7 +10,7 @@ type Product {
 }
 
 type Query {
-  products: [Product]
+  products(offset: Int): [Product]
   product(id: ID!): Product
 }
 

@@ -3,16 +3,29 @@ import type { QueryResolvers } from "./../../../types.generated";
 export const products: NonNullable<QueryResolvers["products"]> = async (
   _parent,
   _arg,
-  _ctx,
+  _ctx
 ) => {
-  const products = await prisma.product.findMany({
-    include: {
-      categories: true,
-      collections: true,
-    },
-  });
+  let products;
 
-  return products.map((product) => ({
+  if (_arg.offset) {
+    products = await prisma.product.findMany({
+      take: 4,
+      skip: 4 * (_arg.offset - 1),
+      include: {
+        categories: true,
+        collections: true,
+      },
+    });
+  } else {
+    products = await prisma.product.findMany({
+      include: {
+        categories: true,
+        collections: true,
+      },
+    });
+  }
+
+  return products.map(product => ({
     ...product,
     categories: [
       {

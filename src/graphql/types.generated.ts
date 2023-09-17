@@ -56,24 +56,33 @@ export type CollectionInput = {
 
 export type Mutation = {
   __typename?: "Mutation";
-  createCategory?: Maybe<Category>;
+  categoryCreate?: Maybe<Category>;
+  categoryDelete?: Maybe<Category>;
+  categoryUpdate?: Maybe<Category>;
   createCollection?: Maybe<Collection>;
   createOrder?: Maybe<Order>;
   createOrderItem?: Maybe<OrderItem>;
   createProduct?: Maybe<Product>;
-  deleteCategory?: Maybe<Category>;
   deleteCollection?: Maybe<Collection>;
   deleteOrder?: Maybe<Scalars["ID"]["output"]>;
   deleteOrderItem?: Maybe<Scalars["ID"]["output"]>;
   deleteProduct?: Maybe<Product>;
-  updateCategory?: Maybe<Category>;
   updateCollection?: Maybe<Collection>;
   updateOrder?: Maybe<Order>;
   updateOrderItem?: Maybe<OrderItem>;
   updateProduct?: Maybe<Product>;
 };
 
-export type MutationCreateCategoryArgs = {
+export type MutationCategoryCreateArgs = {
+  input: CategoryInput;
+};
+
+export type MutationCategoryDeleteArgs = {
+  id: Scalars["ID"]["input"];
+};
+
+export type MutationCategoryUpdateArgs = {
+  id: Scalars["ID"]["input"];
   input: CategoryInput;
 };
 
@@ -95,10 +104,6 @@ export type MutationCreateProductArgs = {
   input: ProductInput;
 };
 
-export type MutationDeleteCategoryArgs = {
-  id: Scalars["ID"]["input"];
-};
-
 export type MutationDeleteCollectionArgs = {
   id: Scalars["ID"]["input"];
 };
@@ -113,11 +118,6 @@ export type MutationDeleteOrderItemArgs = {
 
 export type MutationDeleteProductArgs = {
   id: Scalars["ID"]["input"];
-};
-
-export type MutationUpdateCategoryArgs = {
-  id: Scalars["ID"]["input"];
-  input: CategoryInput;
 };
 
 export type MutationUpdateCollectionArgs = {
@@ -204,6 +204,10 @@ export type QueryGetOrderItemArgs = {
 
 export type QueryProductArgs = {
   id: Scalars["ID"]["input"];
+};
+
+export type QueryProductsArgs = {
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
 };
 
 export type Status =
@@ -390,11 +394,23 @@ export type MutationResolvers<
   ParentType extends
     ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"],
 > = {
-  createCategory?: Resolver<
+  categoryCreate?: Resolver<
     Maybe<ResolversTypes["Category"]>,
     ParentType,
     ContextType,
-    RequireFields<MutationCreateCategoryArgs, "input">
+    RequireFields<MutationCategoryCreateArgs, "input">
+  >;
+  categoryDelete?: Resolver<
+    Maybe<ResolversTypes["Category"]>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCategoryDeleteArgs, "id">
+  >;
+  categoryUpdate?: Resolver<
+    Maybe<ResolversTypes["Category"]>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCategoryUpdateArgs, "id" | "input">
   >;
   createCollection?: Resolver<
     Maybe<ResolversTypes["Collection"]>,
@@ -420,12 +436,6 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateProductArgs, "input">
   >;
-  deleteCategory?: Resolver<
-    Maybe<ResolversTypes["Category"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationDeleteCategoryArgs, "id">
-  >;
   deleteCollection?: Resolver<
     Maybe<ResolversTypes["Collection"]>,
     ParentType,
@@ -449,12 +459,6 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationDeleteProductArgs, "id">
-  >;
-  updateCategory?: Resolver<
-    Maybe<ResolversTypes["Category"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationUpdateCategoryArgs, "id" | "input">
   >;
   updateCollection?: Resolver<
     Maybe<ResolversTypes["Collection"]>,
@@ -581,7 +585,8 @@ export type QueryResolvers<
   products?: Resolver<
     Maybe<Array<Maybe<ResolversTypes["Product"]>>>,
     ParentType,
-    ContextType
+    ContextType,
+    Partial<QueryProductsArgs>
   >;
 };
 
