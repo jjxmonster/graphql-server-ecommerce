@@ -160,6 +160,7 @@ export type Query = {
   order_item?: Maybe<OrderItem>;
   product?: Maybe<Product>;
   products: Array<Product>;
+  products_by_keyword: Array<Product>;
   products_similar: Array<Product>;
 };
 
@@ -186,6 +187,10 @@ export type QueryProductArgs = {
 
 export type QueryProductsArgs = {
   offset?: InputMaybe<Scalars["Int"]["input"]>;
+};
+
+export type QueryProducts_By_KeywordArgs = {
+  keyword: Scalars["String"]["input"];
 };
 
 export type QueryProducts_SimilarArgs = {
@@ -567,6 +572,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     Partial<QueryProductsArgs>
+  >;
+  products_by_keyword?: Resolver<
+    Array<ResolversTypes["Product"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryProducts_By_KeywordArgs, "keyword">
   >;
   products_similar?: Resolver<
     Array<ResolversTypes["Product"]>,
