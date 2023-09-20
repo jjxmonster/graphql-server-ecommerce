@@ -24,6 +24,7 @@ import { order as Query_order } from "./schema/resolvers/Query/order";
 import { order_item as Query_order_item } from "./schema/resolvers/Query/order_item";
 import { product as Query_product } from "./schema/resolvers/Query/product";
 import { products as Query_products } from "./schema/resolvers/Query/products";
+import { products_similar as Query_products_similar } from "./schema/resolvers/Query/products_similar";
 export const resolvers: Resolvers = {
   Query: {
     categories: Query_categories,
@@ -34,6 +35,7 @@ export const resolvers: Resolvers = {
     order_item: Query_order_item,
     product: Query_product,
     products: Query_products,
+    products_similar: Query_products_similar,
   },
   Mutation: {
     createOrder: Mutation_createOrder,

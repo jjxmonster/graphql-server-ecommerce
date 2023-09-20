@@ -14,6 +14,7 @@ type Product {
 type Query {
   products(offset: Int): [Product!]!
   product(id: ID!): Product
+  products_similar(productId: ID!, category: String!): [Product!]!
 }
 
 type Mutation {
