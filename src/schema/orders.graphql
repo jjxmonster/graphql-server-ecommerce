@@ -14,7 +14,7 @@ type Order {
 }
 
 type Query {
-  getOrder(id: ID!): Order
+  order(id: ID!): Order
 }
 
 type Mutation {

@@ -11,6 +11,8 @@ export const product: NonNullable<QueryResolvers["product"]> = async (
     include: {
       categories: true,
       collections: true,
+      productColorVariants: true,
+      productSizeVariants: true,
     },
   });
 
@@ -20,6 +22,8 @@ export const product: NonNullable<QueryResolvers["product"]> = async (
 
   return {
     ...product,
+    product_color_variants: product.productColorVariants,
+    product_size_variants: product.productSizeVariants,
     categories: [
       {
         ...product.categories[0],

@@ -1,21 +1,11 @@
 type Category {
   id: ID!
   name: String!
+  slug: String!
   products: [Product!]!
 }
 
 type Query {
-  categories: [Category]
-  category(id: ID!): Category
-}
-
-type Mutation {
-  categoryCreate(input: CategoryInput!): Category
-  categoryUpdate(id: ID!, input: CategoryInput!): Category
-  categoryDelete(id: ID!): Category
-}
-
-input CategoryInput {
-  name: String!
-  description: String
+  categories: [Category!]!
+  category_products(slug: String!, productsOffset: Int): Category
 }

@@ -8,13 +8,3 @@ type Query {
   collections: [Collection]
   collection(id: ID!): Collection
 }
-
-type Mutation {
-  createCollection(input: CollectionInput!): Collection
-  updateCollection(id: ID!, input: CollectionInput!): Collection
-  deleteCollection(id: ID!): Collection
-}
-
-input CollectionInput {
-  name: String!
-}

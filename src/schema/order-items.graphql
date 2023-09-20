@@ -5,7 +5,7 @@ type OrderItem {
 }
 
 type Query {
-  getOrderItem(id: ID!): OrderItem
+  order_item(id: ID!): OrderItem
 }
 
 type Mutation {

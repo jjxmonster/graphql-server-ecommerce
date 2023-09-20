@@ -7,10 +7,12 @@ type Product {
   image: String!
   categories: [Category!]!
   collections: [Collection!]!
+  product_color_variants: [ProductColorVariant]!
+  product_size_variants: [ProductSizeVariant]!
 }
 
 type Query {
-  products(offset: Int): [Product]
+  products(offset: Int): [Product!]!
   product(id: ID!): Product
 }
 

@@ -5,15 +5,19 @@ const prisma = new PrismaClient();
 
 const productsCount = 5;
 
+const colors = ["Red", "Blue"];
+const sizes = ["S", "M", "XL"];
+
 const category = await prisma.category.create({
   data: {
-    name: "Hoodies",
+    name: "T-shirts",
+    slug: "t-shirts",
   },
 });
 
 const collection = await prisma.collection.create({
   data: {
-    name: "Autumn 2023",
+    name: "Summer 2024",
   },
 });
 
@@ -27,6 +31,18 @@ for (let i = 0; i < productsCount; i++) {
       description: faker.commerce.productDescription(),
       price: Number(faker.commerce.price()) * 100,
       image: faker.image.url(),
+      productSizeVariants: {
+        create: sizes.map(size => ({
+          name: size,
+          slug: `${size.toLowerCase()}`,
+        })),
+      },
+      productColorVariants: {
+        create: colors.map(color => ({
+          name: color,
+          slug: `${color.toLowerCase()}`,
+        })),
+      },
       categories: {
         connect: {
           id: category.id,

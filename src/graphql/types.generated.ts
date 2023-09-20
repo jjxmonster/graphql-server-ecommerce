@@ -36,11 +36,7 @@ export type Category = {
   id: Scalars["ID"]["output"];
   name: Scalars["String"]["output"];
   products: Array<Product>;
-};
-
-export type CategoryInput = {
-  description?: InputMaybe<Scalars["String"]["input"]>;
-  name: Scalars["String"]["input"];
+  slug: Scalars["String"]["output"];
 };
 
 export type Collection = {
@@ -50,44 +46,17 @@ export type Collection = {
   products: Array<Product>;
 };
 
-export type CollectionInput = {
-  name: Scalars["String"]["input"];
-};
-
 export type Mutation = {
   __typename?: "Mutation";
-  categoryCreate?: Maybe<Category>;
-  categoryDelete?: Maybe<Category>;
-  categoryUpdate?: Maybe<Category>;
-  createCollection?: Maybe<Collection>;
   createOrder?: Maybe<Order>;
   createOrderItem?: Maybe<OrderItem>;
   createProduct?: Maybe<Product>;
-  deleteCollection?: Maybe<Collection>;
   deleteOrder?: Maybe<Scalars["ID"]["output"]>;
   deleteOrderItem?: Maybe<Scalars["ID"]["output"]>;
   deleteProduct?: Maybe<Product>;
-  updateCollection?: Maybe<Collection>;
   updateOrder?: Maybe<Order>;
   updateOrderItem?: Maybe<OrderItem>;
   updateProduct?: Maybe<Product>;
-};
-
-export type MutationCategoryCreateArgs = {
-  input: CategoryInput;
-};
-
-export type MutationCategoryDeleteArgs = {
-  id: Scalars["ID"]["input"];
-};
-
-export type MutationCategoryUpdateArgs = {
-  id: Scalars["ID"]["input"];
-  input: CategoryInput;
-};
-
-export type MutationCreateCollectionArgs = {
-  input: CollectionInput;
 };
 
 export type MutationCreateOrderArgs = {
@@ -104,10 +73,6 @@ export type MutationCreateProductArgs = {
   input: ProductInput;
 };
 
-export type MutationDeleteCollectionArgs = {
-  id: Scalars["ID"]["input"];
-};
-
 export type MutationDeleteOrderArgs = {
   id: Scalars["ID"]["input"];
 };
@@ -118,11 +83,6 @@ export type MutationDeleteOrderItemArgs = {
 
 export type MutationDeleteProductArgs = {
   id: Scalars["ID"]["input"];
-};
-
-export type MutationUpdateCollectionArgs = {
-  id: Scalars["ID"]["input"];
-  input: CollectionInput;
 };
 
 export type MutationUpdateOrderArgs = {
@@ -164,6 +124,15 @@ export type Product = {
   image: Scalars["String"]["output"];
   name: Scalars["String"]["output"];
   price: Scalars["Int"]["output"];
+  product_color_variants: Array<Maybe<ProductColorVariant>>;
+  product_size_variants: Array<Maybe<ProductSizeVariant>>;
+  slug: Scalars["String"]["output"];
+};
+
+export type ProductColorVariant = {
+  __typename?: "ProductColorVariant";
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
   slug: Scalars["String"]["output"];
 };
 
@@ -174,31 +143,39 @@ export type ProductInput = {
   slug: Scalars["String"]["input"];
 };
 
-export type Query = {
-  __typename?: "Query";
-  categories?: Maybe<Array<Maybe<Category>>>;
-  category?: Maybe<Category>;
-  collection?: Maybe<Collection>;
-  collections?: Maybe<Array<Maybe<Collection>>>;
-  getOrder?: Maybe<Order>;
-  getOrderItem?: Maybe<OrderItem>;
-  product?: Maybe<Product>;
-  products?: Maybe<Array<Maybe<Product>>>;
+export type ProductSizeVariant = {
+  __typename?: "ProductSizeVariant";
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
+  slug: Scalars["String"]["output"];
 };
 
-export type QueryCategoryArgs = {
-  id: Scalars["ID"]["input"];
+export type Query = {
+  __typename?: "Query";
+  categories: Array<Category>;
+  category_products?: Maybe<Category>;
+  collection?: Maybe<Collection>;
+  collections?: Maybe<Array<Maybe<Collection>>>;
+  order?: Maybe<Order>;
+  order_item?: Maybe<OrderItem>;
+  product?: Maybe<Product>;
+  products: Array<Product>;
+};
+
+export type QueryCategory_ProductsArgs = {
+  productsOffset?: InputMaybe<Scalars["Int"]["input"]>;
+  slug: Scalars["String"]["input"];
 };
 
 export type QueryCollectionArgs = {
   id: Scalars["ID"]["input"];
 };
 
-export type QueryGetOrderArgs = {
+export type QueryOrderArgs = {
   id: Scalars["ID"]["input"];
 };
 
-export type QueryGetOrderItemArgs = {
+export type QueryOrder_ItemArgs = {
   id: Scalars["ID"]["input"];
 };
 
@@ -327,15 +304,15 @@ export type ResolversTypes = {
   Category: ResolverTypeWrapper<Category>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
-  CategoryInput: CategoryInput;
   Collection: ResolverTypeWrapper<Collection>;
-  CollectionInput: CollectionInput;
   Mutation: ResolverTypeWrapper<{}>;
   Int: ResolverTypeWrapper<Scalars["Int"]["output"]>;
   Order: ResolverTypeWrapper<Order>;
   OrderItem: ResolverTypeWrapper<OrderItem>;
   Product: ResolverTypeWrapper<Product>;
+  ProductColorVariant: ResolverTypeWrapper<ProductColorVariant>;
   ProductInput: ProductInput;
+  ProductSizeVariant: ResolverTypeWrapper<ProductSizeVariant>;
   Query: ResolverTypeWrapper<{}>;
   Status: Status;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
@@ -346,15 +323,15 @@ export type ResolversParentTypes = {
   Category: Category;
   ID: Scalars["ID"]["output"];
   String: Scalars["String"]["output"];
-  CategoryInput: CategoryInput;
   Collection: Collection;
-  CollectionInput: CollectionInput;
   Mutation: {};
   Int: Scalars["Int"]["output"];
   Order: Order;
   OrderItem: OrderItem;
   Product: Product;
+  ProductColorVariant: ProductColorVariant;
   ProductInput: ProductInput;
+  ProductSizeVariant: ProductSizeVariant;
   Query: {};
   Boolean: Scalars["Boolean"]["output"];
 };
@@ -371,6 +348,7 @@ export type CategoryResolvers<
     ParentType,
     ContextType
   >;
+  slug?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -394,30 +372,6 @@ export type MutationResolvers<
   ParentType extends
     ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"],
 > = {
-  categoryCreate?: Resolver<
-    Maybe<ResolversTypes["Category"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationCategoryCreateArgs, "input">
-  >;
-  categoryDelete?: Resolver<
-    Maybe<ResolversTypes["Category"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationCategoryDeleteArgs, "id">
-  >;
-  categoryUpdate?: Resolver<
-    Maybe<ResolversTypes["Category"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationCategoryUpdateArgs, "id" | "input">
-  >;
-  createCollection?: Resolver<
-    Maybe<ResolversTypes["Collection"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreateCollectionArgs, "input">
-  >;
   createOrder?: Resolver<
     Maybe<ResolversTypes["Order"]>,
     ParentType,
@@ -436,12 +390,6 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateProductArgs, "input">
   >;
-  deleteCollection?: Resolver<
-    Maybe<ResolversTypes["Collection"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationDeleteCollectionArgs, "id">
-  >;
   deleteOrder?: Resolver<
     Maybe<ResolversTypes["ID"]>,
     ParentType,
@@ -459,12 +407,6 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationDeleteProductArgs, "id">
-  >;
-  updateCollection?: Resolver<
-    Maybe<ResolversTypes["Collection"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationUpdateCollectionArgs, "id" | "input">
   >;
   updateOrder?: Resolver<
     Maybe<ResolversTypes["Order"]>,
@@ -533,6 +475,38 @@ export type ProductResolvers<
   image?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   price?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+  product_color_variants?: Resolver<
+    Array<Maybe<ResolversTypes["ProductColorVariant"]>>,
+    ParentType,
+    ContextType
+  >;
+  product_size_variants?: Resolver<
+    Array<Maybe<ResolversTypes["ProductSizeVariant"]>>,
+    ParentType,
+    ContextType
+  >;
+  slug?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProductColorVariantResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes["ProductColorVariant"] = ResolversParentTypes["ProductColorVariant"],
+> = {
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProductSizeVariantResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes["ProductSizeVariant"] = ResolversParentTypes["ProductSizeVariant"],
+> = {
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -543,15 +517,15 @@ export type QueryResolvers<
     ResolversParentTypes["Query"] = ResolversParentTypes["Query"],
 > = {
   categories?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes["Category"]>>>,
+    Array<ResolversTypes["Category"]>,
     ParentType,
     ContextType
   >;
-  category?: Resolver<
+  category_products?: Resolver<
     Maybe<ResolversTypes["Category"]>,
     ParentType,
     ContextType,
-    RequireFields<QueryCategoryArgs, "id">
+    RequireFields<QueryCategory_ProductsArgs, "slug">
   >;
   collection?: Resolver<
     Maybe<ResolversTypes["Collection"]>,
@@ -564,17 +538,17 @@ export type QueryResolvers<
     ParentType,
     ContextType
   >;
-  getOrder?: Resolver<
+  order?: Resolver<
     Maybe<ResolversTypes["Order"]>,
     ParentType,
     ContextType,
-    RequireFields<QueryGetOrderArgs, "id">
+    RequireFields<QueryOrderArgs, "id">
   >;
-  getOrderItem?: Resolver<
+  order_item?: Resolver<
     Maybe<ResolversTypes["OrderItem"]>,
     ParentType,
     ContextType,
-    RequireFields<QueryGetOrderItemArgs, "id">
+    RequireFields<QueryOrder_ItemArgs, "id">
   >;
   product?: Resolver<
     Maybe<ResolversTypes["Product"]>,
@@ -583,7 +557,7 @@ export type QueryResolvers<
     RequireFields<QueryProductArgs, "id">
   >;
   products?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes["Product"]>>>,
+    Array<ResolversTypes["Product"]>,
     ParentType,
     ContextType,
     Partial<QueryProductsArgs>
@@ -597,5 +571,7 @@ export type Resolvers<ContextType = any> = {
   Order?: OrderResolvers<ContextType>;
   OrderItem?: OrderItemResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
+  ProductColorVariant?: ProductColorVariantResolvers<ContextType>;
+  ProductSizeVariant?: ProductSizeVariantResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };
