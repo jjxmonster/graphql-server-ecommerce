@@ -35,7 +35,7 @@ export const category_products: NonNullable<
 
   return {
     ...category,
-    products: category.products.map(product => ({
+    products: category.products.map((product) => ({
       ...product,
       categories: [],
       collections: [],

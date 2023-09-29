@@ -18,7 +18,7 @@ export const collection_products: NonNullable<
 
   return {
     ...collection,
-    products: collection.products.map(product => ({
+    products: collection.products.map((product) => ({
       ...product,
       categories: [],
       collections: [],

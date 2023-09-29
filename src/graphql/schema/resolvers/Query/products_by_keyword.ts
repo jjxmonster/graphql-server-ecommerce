@@ -13,7 +13,7 @@ export const products_by_keyword: NonNullable<
     },
   });
 
-  return products.map(product => ({
+  return products.map((product) => ({
     ...product,
     categories: [
       {

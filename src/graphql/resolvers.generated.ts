@@ -17,7 +17,9 @@ import { Product } from "./schema/resolvers/Product";
 import { ProductColorVariant } from "./schema/resolvers/ProductColorVariant";
 import { ProductSizeVariant } from "./schema/resolvers/ProductSizeVariant";
 import { categories as Query_categories } from "./schema/resolvers/Query/categories";
+import { category as Query_category } from "./schema/resolvers/Query/category";
 import { category_products as Query_category_products } from "./schema/resolvers/Query/category_products";
+import { collection as Query_collection } from "./schema/resolvers/Query/collection";
 import { collection_products as Query_collection_products } from "./schema/resolvers/Query/collection_products";
 import { collections as Query_collections } from "./schema/resolvers/Query/collections";
 import { order as Query_order } from "./schema/resolvers/Query/order";
@@ -29,7 +31,9 @@ import { products_similar as Query_products_similar } from "./schema/resolvers/Q
 export const resolvers: Resolvers = {
   Query: {
     categories: Query_categories,
+    category: Query_category,
     category_products: Query_category_products,
+    collection: Query_collection,
     collection_products: Query_collection_products,
     collections: Query_collections,
     order: Query_order,

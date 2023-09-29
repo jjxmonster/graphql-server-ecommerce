@@ -7,5 +7,6 @@ type Collection {
 
 type Query {
   collections: [Collection]
+  collection(slug: String!): Collection
   collection_products(slug: String!): Collection
 }

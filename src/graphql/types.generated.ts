@@ -154,7 +154,9 @@ export type ProductSizeVariant = {
 export type Query = {
   __typename?: "Query";
   categories: Array<Category>;
+  category?: Maybe<Category>;
   category_products?: Maybe<Category>;
+  collection?: Maybe<Collection>;
   collection_products?: Maybe<Collection>;
   collections?: Maybe<Array<Maybe<Collection>>>;
   order?: Maybe<Order>;
@@ -165,8 +167,16 @@ export type Query = {
   products_similar: Array<Product>;
 };
 
+export type QueryCategoryArgs = {
+  slug: Scalars["String"]["input"];
+};
+
 export type QueryCategory_ProductsArgs = {
   productsOffset?: InputMaybe<Scalars["Int"]["input"]>;
+  slug: Scalars["String"]["input"];
+};
+
+export type QueryCollectionArgs = {
   slug: Scalars["String"]["input"];
 };
 
@@ -534,11 +544,23 @@ export type QueryResolvers<
     ParentType,
     ContextType
   >;
+  category?: Resolver<
+    Maybe<ResolversTypes["Category"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryCategoryArgs, "slug">
+  >;
   category_products?: Resolver<
     Maybe<ResolversTypes["Category"]>,
     ParentType,
     ContextType,
     RequireFields<QueryCategory_ProductsArgs, "slug">
+  >;
+  collection?: Resolver<
+    Maybe<ResolversTypes["Collection"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryCollectionArgs, "slug">
   >;
   collection_products?: Resolver<
     Maybe<ResolversTypes["Collection"]>,
