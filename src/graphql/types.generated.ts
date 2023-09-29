@@ -44,6 +44,7 @@ export type Collection = {
   id: Scalars["ID"]["output"];
   name: Scalars["String"]["output"];
   products: Array<Product>;
+  slug: Scalars["String"]["output"];
 };
 
 export type Mutation = {
@@ -154,7 +155,7 @@ export type Query = {
   __typename?: "Query";
   categories: Array<Category>;
   category_products?: Maybe<Category>;
-  collection?: Maybe<Collection>;
+  collection_products?: Maybe<Collection>;
   collections?: Maybe<Array<Maybe<Collection>>>;
   order?: Maybe<Order>;
   order_item?: Maybe<OrderItem>;
@@ -169,8 +170,8 @@ export type QueryCategory_ProductsArgs = {
   slug: Scalars["String"]["input"];
 };
 
-export type QueryCollectionArgs = {
-  id: Scalars["ID"]["input"];
+export type QueryCollection_ProductsArgs = {
+  slug: Scalars["String"]["input"];
 };
 
 export type QueryOrderArgs = {
@@ -375,6 +376,7 @@ export type CollectionResolvers<
     ParentType,
     ContextType
   >;
+  slug?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -538,11 +540,11 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryCategory_ProductsArgs, "slug">
   >;
-  collection?: Resolver<
+  collection_products?: Resolver<
     Maybe<ResolversTypes["Collection"]>,
     ParentType,
     ContextType,
-    RequireFields<QueryCollectionArgs, "id">
+    RequireFields<QueryCollection_ProductsArgs, "slug">
   >;
   collections?: Resolver<
     Maybe<Array<Maybe<ResolversTypes["Collection"]>>>,

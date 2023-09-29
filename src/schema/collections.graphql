@@ -1,10 +1,11 @@
 type Collection {
   id: ID!
   name: String!
+  slug: String!
   products: [Product!]!
 }
 
 type Query {
   collections: [Collection]
-  collection(id: ID!): Collection
+  collection_products(slug: String!): Collection
 }

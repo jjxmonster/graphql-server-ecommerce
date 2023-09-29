@@ -18,6 +18,7 @@ const category = await prisma.category.create({
 const collection = await prisma.collection.create({
   data: {
     name: "Winter 2023",
+    slug: "winter-2023",
   },
 });
 
