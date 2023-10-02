@@ -3,7 +3,7 @@ import type { QueryResolvers } from "./../../../types.generated";
 export const order: NonNullable<QueryResolvers["order"]> = async (
   _parent,
   _arg,
-  _ctx
+  _ctx,
 ) => {
   const order = await prisma.order.findUnique({
     where: { id: _arg.id },
@@ -18,7 +18,7 @@ export const order: NonNullable<QueryResolvers["order"]> = async (
     id: order.id,
     total: order.total,
     status: order.status,
-    orderItems: order.orderItems.map(orderItem => ({
+    orderItems: order.orderItems.map((orderItem) => ({
       id: orderItem.id,
       quantity: orderItem.quantity,
       product: {

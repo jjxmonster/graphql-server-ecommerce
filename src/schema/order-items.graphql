@@ -9,7 +9,7 @@ type Query {
 }
 
 type Mutation {
-  createOrderItem(quantity: Int!, productId: ID!): OrderItem
+  createOrderItem(quantity: Int!, productId: ID!, orderId: ID!): OrderItem
   updateOrderItem(id: ID!, quantity: Int!): OrderItem
   deleteOrderItem(id: ID!): ID
 }

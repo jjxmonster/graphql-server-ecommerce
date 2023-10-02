@@ -1,15 +1,7 @@
-enum Status {
-  PENDING
-  PROCESSING
-  SHIPPED
-  DELIVERED
-  CANCELED
-}
-
 type Order {
   id: ID!
   total: Int!
-  status: Status!
+  status: String
   orderItems: [OrderItem!]!
 }
 
@@ -18,7 +10,7 @@ type Query {
 }
 
 type Mutation {
-  createOrder(total: Int!, status: Status!): Order
-  updateOrder(id: ID!, status: Status!): Order
+  createOrder(total: Int!): Order
+  updateOrder(id: ID!, status: String): Order
   deleteOrder(id: ID!): ID
 }

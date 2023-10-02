@@ -61,11 +61,11 @@ export type Mutation = {
 };
 
 export type MutationCreateOrderArgs = {
-  status: Status;
   total: Scalars["Int"]["input"];
 };
 
 export type MutationCreateOrderItemArgs = {
+  orderId: Scalars["ID"]["input"];
   productId: Scalars["ID"]["input"];
   quantity: Scalars["Int"]["input"];
 };
@@ -88,7 +88,7 @@ export type MutationDeleteProductArgs = {
 
 export type MutationUpdateOrderArgs = {
   id: Scalars["ID"]["input"];
-  status: Status;
+  status?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationUpdateOrderItemArgs = {
@@ -105,7 +105,7 @@ export type Order = {
   __typename?: "Order";
   id: Scalars["ID"]["output"];
   orderItems: Array<OrderItem>;
-  status: Status;
+  status?: Maybe<Scalars["String"]["output"]>;
   total: Scalars["Int"]["output"];
 };
 
@@ -208,13 +208,6 @@ export type QueryProducts_SimilarArgs = {
   category: Scalars["String"]["input"];
   productId: Scalars["ID"]["input"];
 };
-
-export type Status =
-  | "CANCELED"
-  | "DELIVERED"
-  | "PENDING"
-  | "PROCESSING"
-  | "SHIPPED";
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -336,7 +329,6 @@ export type ResolversTypes = {
   ProductInput: ProductInput;
   ProductSizeVariant: ResolverTypeWrapper<ProductSizeVariant>;
   Query: ResolverTypeWrapper<{}>;
-  Status: Status;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
@@ -399,13 +391,16 @@ export type MutationResolvers<
     Maybe<ResolversTypes["Order"]>,
     ParentType,
     ContextType,
-    RequireFields<MutationCreateOrderArgs, "status" | "total">
+    RequireFields<MutationCreateOrderArgs, "total">
   >;
   createOrderItem?: Resolver<
     Maybe<ResolversTypes["OrderItem"]>,
     ParentType,
     ContextType,
-    RequireFields<MutationCreateOrderItemArgs, "productId" | "quantity">
+    RequireFields<
+      MutationCreateOrderItemArgs,
+      "orderId" | "productId" | "quantity"
+    >
   >;
   createProduct?: Resolver<
     Maybe<ResolversTypes["Product"]>,
@@ -435,7 +430,7 @@ export type MutationResolvers<
     Maybe<ResolversTypes["Order"]>,
     ParentType,
     ContextType,
-    RequireFields<MutationUpdateOrderArgs, "id" | "status">
+    RequireFields<MutationUpdateOrderArgs, "id">
   >;
   updateOrderItem?: Resolver<
     Maybe<ResolversTypes["OrderItem"]>,
@@ -462,7 +457,7 @@ export type OrderResolvers<
     ParentType,
     ContextType
   >;
-  status?: Resolver<ResolversTypes["Status"], ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   total?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
