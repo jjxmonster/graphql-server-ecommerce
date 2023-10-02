@@ -3,7 +3,7 @@ import type { QueryResolvers } from "./../../../types.generated";
 export const category: NonNullable<QueryResolvers["category"]> = async (
   _parent,
   _arg,
-  _ctx
+  _ctx,
 ) => {
   const category = await prisma.category.findFirst({
     where: {

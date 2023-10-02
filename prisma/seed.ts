@@ -10,14 +10,13 @@ const sizes = ["S", "M", "XL"];
 
 const category = await prisma.category.create({
   data: {
-    name: "Hoodies",
-    slug: "hoodies",
+    name: "T-Shirts",
+    slug: "t-shirts",
   },
 });
 
-const collection = await prisma.collection.create({
-  data: {
-    name: "Winter 2023",
+const collection = await prisma.collection.findFirst({
+  where: {
     slug: "winter-2023",
   },
 });
