@@ -6,7 +6,7 @@ type Order {
 }
 
 type Query {
-  order(id: ID!): Order
+  order(id: ID!, status: String): Order
 }
 
 type Mutation {

@@ -186,6 +186,7 @@ export type QueryCollection_ProductsArgs = {
 
 export type QueryOrderArgs = {
   id: Scalars["ID"]["input"];
+  status?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryOrder_ItemArgs = {

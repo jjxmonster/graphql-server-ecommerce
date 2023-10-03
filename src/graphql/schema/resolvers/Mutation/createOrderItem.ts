@@ -3,14 +3,36 @@ import type { MutationResolvers } from "./../../../types.generated";
 export const createOrderItem: NonNullable<
   MutationResolvers["createOrderItem"]
 > = async (_parent, _arg, _ctx) => {
-  const orderItem = await prisma.orderItem.create({
-    data: {
-      orderId: _arg.orderId,
+  let orderItem;
+  const isProductInOrder = await prisma.orderItem.findFirst({
+    where: {
       productId: _arg.productId,
-      quantity: _arg.quantity,
+      orderId: _arg.orderId,
     },
-    include: { product: true },
   });
+
+  if (isProductInOrder) {
+    orderItem = await prisma.orderItem.update({
+      where: {
+        id: isProductInOrder.id,
+      },
+      data: {
+        quantity: {
+          increment: _arg.quantity,
+        },
+      },
+      include: { product: true },
+    });
+  } else {
+    orderItem = await prisma.orderItem.create({
+      data: {
+        orderId: _arg.orderId,
+        productId: _arg.productId,
+        quantity: _arg.quantity,
+      },
+      include: { product: true },
+    });
+  }
 
   await prisma.order.update({
     where: { id: _arg.orderId },

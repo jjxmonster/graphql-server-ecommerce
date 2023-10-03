@@ -7,7 +7,7 @@ export const createOrder: NonNullable<
   const order = await prisma.order.create({
     data: {
       total: _arg.total,
-      status: Status.PENDING,
+      status: Status.DRAFT,
     },
   });
 
