@@ -5,6 +5,7 @@ import { Collection } from "./schema/resolvers/Collection";
 import { createOrder as Mutation_createOrder } from "./schema/resolvers/Mutation/createOrder";
 import { createOrderItem as Mutation_createOrderItem } from "./schema/resolvers/Mutation/createOrderItem";
 import { createProduct as Mutation_createProduct } from "./schema/resolvers/Mutation/createProduct";
+import { createReview as Mutation_createReview } from "./schema/resolvers/Mutation/createReview";
 import { deleteOrder as Mutation_deleteOrder } from "./schema/resolvers/Mutation/deleteOrder";
 import { deleteOrderItem as Mutation_deleteOrderItem } from "./schema/resolvers/Mutation/deleteOrderItem";
 import { deleteProduct as Mutation_deleteProduct } from "./schema/resolvers/Mutation/deleteProduct";
@@ -28,6 +29,8 @@ import { product as Query_product } from "./schema/resolvers/Query/product";
 import { products as Query_products } from "./schema/resolvers/Query/products";
 import { products_by_keyword as Query_products_by_keyword } from "./schema/resolvers/Query/products_by_keyword";
 import { products_similar as Query_products_similar } from "./schema/resolvers/Query/products_similar";
+import { reviews as Query_reviews } from "./schema/resolvers/Query/reviews";
+import { Review } from "./schema/resolvers/Review";
 export const resolvers: Resolvers = {
   Query: {
     categories: Query_categories,
@@ -42,11 +45,13 @@ export const resolvers: Resolvers = {
     products: Query_products,
     products_by_keyword: Query_products_by_keyword,
     products_similar: Query_products_similar,
+    reviews: Query_reviews,
   },
   Mutation: {
     createOrder: Mutation_createOrder,
     createOrderItem: Mutation_createOrderItem,
     createProduct: Mutation_createProduct,
+    createReview: Mutation_createReview,
     deleteOrder: Mutation_deleteOrder,
     deleteOrderItem: Mutation_deleteOrderItem,
     deleteProduct: Mutation_deleteProduct,
@@ -62,4 +67,5 @@ export const resolvers: Resolvers = {
   Product: Product,
   ProductColorVariant: ProductColorVariant,
   ProductSizeVariant: ProductSizeVariant,
+  Review: Review,
 };

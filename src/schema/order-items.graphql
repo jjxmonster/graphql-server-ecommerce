@@ -1,6 +1,8 @@
 type OrderItem {
   id: ID!
   quantity: Int!
+  size: String!
+  color: String!
   product: Product!
 }
 
@@ -9,7 +11,13 @@ type Query {
 }
 
 type Mutation {
-  createOrderItem(quantity: Int!, productId: ID!, orderId: ID!): OrderItem
+  createOrderItem(
+    quantity: Int!
+    productId: ID!
+    orderId: ID!
+    size: String
+    color: String
+  ): OrderItem
   updateOrderItem(id: ID!, quantity: Int!): OrderItem
   deleteOrderItem(id: ID!): ID
 }

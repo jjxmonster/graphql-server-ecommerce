@@ -5,13 +5,13 @@ const prisma = new PrismaClient();
 
 const productsCount = 5;
 
-const colors = ["Red", "Blue"];
+const colors = ["Black", "White"];
 const sizes = ["S", "M", "XL"];
 
 const category = await prisma.category.create({
   data: {
-    name: "T-Shirts",
-    slug: "t-shirts",
+    name: "Hoodies",
+    slug: "hoodies",
   },
 });
 

@@ -24,11 +24,14 @@ export const createOrderItem: NonNullable<
       include: { product: true },
     });
   } else {
+    console.log(_arg, "DATA");
     orderItem = await prisma.orderItem.create({
       data: {
         orderId: _arg.orderId,
         productId: _arg.productId,
         quantity: _arg.quantity,
+        size: _arg.size ?? "",
+        color: _arg.color ?? "",
       },
       include: { product: true },
     });
@@ -50,6 +53,8 @@ export const createOrderItem: NonNullable<
   return {
     id: orderItem.id,
     quantity: orderItem.quantity,
+    size: orderItem.size,
+    color: orderItem.color,
     product: {
       id: orderItem.productId,
       name: orderItem.product.name,

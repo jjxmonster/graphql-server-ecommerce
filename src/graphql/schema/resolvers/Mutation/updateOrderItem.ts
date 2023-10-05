@@ -20,6 +20,8 @@ export const updateOrderItem: NonNullable<
   return {
     id: orderItem.id,
     quantity: orderItem.quantity,
+    size: orderItem.size,
+    color: orderItem.color,
     product: {
       id: orderItem.productId,
       name: orderItem.product.name,

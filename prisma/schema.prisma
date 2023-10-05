@@ -47,6 +47,8 @@ model Category {
 model OrderItem {
   id        String  @id @default(cuid())
   quantity  Int
+  size      String
+  color     String
   product   Product @relation(fields: [productId], references: [id])
   order     Order   @relation(fields: [orderId], references: [id])
   productId String

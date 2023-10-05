@@ -1,4 +1,3 @@
-import { Status } from "@prisma/client";
 import { prisma } from "../../../../db";
 import type { MutationResolvers } from "./../../../types.generated";
 export const createOrder: NonNullable<
@@ -7,7 +6,7 @@ export const createOrder: NonNullable<
   const order = await prisma.order.create({
     data: {
       total: _arg.total,
-      status: Status.DRAFT,
+      status: "DRAFT",
     },
   });
 

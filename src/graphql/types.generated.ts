@@ -52,6 +52,7 @@ export type Mutation = {
   createOrder?: Maybe<Order>;
   createOrderItem?: Maybe<OrderItem>;
   createProduct?: Maybe<Product>;
+  createReview?: Maybe<Review>;
   deleteOrder?: Maybe<Scalars["ID"]["output"]>;
   deleteOrderItem?: Maybe<Scalars["ID"]["output"]>;
   deleteProduct?: Maybe<Product>;
@@ -65,13 +66,22 @@ export type MutationCreateOrderArgs = {
 };
 
 export type MutationCreateOrderItemArgs = {
+  color?: InputMaybe<Scalars["String"]["input"]>;
   orderId: Scalars["ID"]["input"];
   productId: Scalars["ID"]["input"];
   quantity: Scalars["Int"]["input"];
+  size?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationCreateProductArgs = {
   input: ProductInput;
+};
+
+export type MutationCreateReviewArgs = {
+  content: Scalars["String"]["input"];
+  productId?: InputMaybe<Scalars["Int"]["input"]>;
+  rating: Scalars["Int"]["input"];
+  title: Scalars["String"]["input"];
 };
 
 export type MutationDeleteOrderArgs = {
@@ -111,9 +121,11 @@ export type Order = {
 
 export type OrderItem = {
   __typename?: "OrderItem";
+  color: Scalars["String"]["output"];
   id: Scalars["ID"]["output"];
   product: Product;
   quantity: Scalars["Int"]["output"];
+  size: Scalars["String"]["output"];
 };
 
 export type Product = {
@@ -165,6 +177,7 @@ export type Query = {
   products: Array<Product>;
   products_by_keyword: Array<Product>;
   products_similar: Array<Product>;
+  reviews?: Maybe<Review>;
 };
 
 export type QueryCategoryArgs = {
@@ -208,6 +221,19 @@ export type QueryProducts_By_KeywordArgs = {
 export type QueryProducts_SimilarArgs = {
   category: Scalars["String"]["input"];
   productId: Scalars["ID"]["input"];
+};
+
+export type QueryReviewsArgs = {
+  productId: Scalars["ID"]["input"];
+};
+
+export type Review = {
+  __typename?: "Review";
+  content: Scalars["String"]["output"];
+  id: Scalars["ID"]["output"];
+  product: Product;
+  rating: Scalars["Int"]["output"];
+  title: Scalars["String"]["output"];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -330,6 +356,7 @@ export type ResolversTypes = {
   ProductInput: ProductInput;
   ProductSizeVariant: ResolverTypeWrapper<ProductSizeVariant>;
   Query: ResolverTypeWrapper<{}>;
+  Review: ResolverTypeWrapper<Review>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
@@ -348,6 +375,7 @@ export type ResolversParentTypes = {
   ProductInput: ProductInput;
   ProductSizeVariant: ProductSizeVariant;
   Query: {};
+  Review: Review;
   Boolean: Scalars["Boolean"]["output"];
 };
 
@@ -409,6 +437,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateProductArgs, "input">
   >;
+  createReview?: Resolver<
+    Maybe<ResolversTypes["Review"]>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateReviewArgs, "content" | "rating" | "title">
+  >;
   deleteOrder?: Resolver<
     Maybe<ResolversTypes["ID"]>,
     ParentType,
@@ -468,9 +502,11 @@ export type OrderItemResolvers<
   ParentType extends
     ResolversParentTypes["OrderItem"] = ResolversParentTypes["OrderItem"],
 > = {
+  color?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   product?: Resolver<ResolversTypes["Product"], ParentType, ContextType>;
   quantity?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+  size?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -605,6 +641,25 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryProducts_SimilarArgs, "category" | "productId">
   >;
+  reviews?: Resolver<
+    Maybe<ResolversTypes["Review"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryReviewsArgs, "productId">
+  >;
+};
+
+export type ReviewResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes["Review"] = ResolversParentTypes["Review"],
+> = {
+  content?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  product?: Resolver<ResolversTypes["Product"], ParentType, ContextType>;
+  rating?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
@@ -617,4 +672,5 @@ export type Resolvers<ContextType = any> = {
   ProductColorVariant?: ProductColorVariantResolvers<ContextType>;
   ProductSizeVariant?: ProductSizeVariantResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Review?: ReviewResolvers<ContextType>;
 };
