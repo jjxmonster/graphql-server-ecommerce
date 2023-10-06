@@ -21,16 +21,3 @@ type Query {
 #   field: String!
 #   order: String!
 # }
-
-type Mutation {
-  createProduct(input: ProductInput!): Product
-  updateProduct(id: ID!, input: ProductInput!): Product
-  deleteProduct(id: ID!): Product
-}
-
-input ProductInput {
-  name: String!
-  slug: String!
-  description: String!
-  price: Int!
-}

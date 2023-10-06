@@ -9,7 +9,7 @@ type Review {
 }
 
 type Query {
-  reviews(productId: ID!): Review
+  reviews(productId: ID!): [Review!]!
 }
 
 type Mutation {

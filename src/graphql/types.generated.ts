@@ -51,14 +51,9 @@ export type Mutation = {
   __typename?: "Mutation";
   createOrder?: Maybe<Order>;
   createOrderItem?: Maybe<OrderItem>;
-  createProduct?: Maybe<Product>;
   createReview?: Maybe<Review>;
-  deleteOrder?: Maybe<Scalars["ID"]["output"]>;
-  deleteOrderItem?: Maybe<Scalars["ID"]["output"]>;
-  deleteProduct?: Maybe<Product>;
   updateOrder?: Maybe<Order>;
   updateOrderItem?: Maybe<OrderItem>;
-  updateProduct?: Maybe<Product>;
 };
 
 export type MutationCreateOrderArgs = {
@@ -73,10 +68,6 @@ export type MutationCreateOrderItemArgs = {
   size?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type MutationCreateProductArgs = {
-  input: ProductInput;
-};
-
 export type MutationCreateReviewArgs = {
   content: Scalars["String"]["input"];
   email: Scalars["String"]["input"];
@@ -84,18 +75,6 @@ export type MutationCreateReviewArgs = {
   productId: Scalars["String"]["input"];
   rating: Scalars["Int"]["input"];
   title: Scalars["String"]["input"];
-};
-
-export type MutationDeleteOrderArgs = {
-  id: Scalars["ID"]["input"];
-};
-
-export type MutationDeleteOrderItemArgs = {
-  id: Scalars["ID"]["input"];
-};
-
-export type MutationDeleteProductArgs = {
-  id: Scalars["ID"]["input"];
 };
 
 export type MutationUpdateOrderArgs = {
@@ -106,11 +85,6 @@ export type MutationUpdateOrderArgs = {
 export type MutationUpdateOrderItemArgs = {
   id: Scalars["ID"]["input"];
   quantity: Scalars["Int"]["input"];
-};
-
-export type MutationUpdateProductArgs = {
-  id: Scalars["ID"]["input"];
-  input: ProductInput;
 };
 
 export type Order = {
@@ -151,13 +125,6 @@ export type ProductColorVariant = {
   slug: Scalars["String"]["output"];
 };
 
-export type ProductInput = {
-  description: Scalars["String"]["input"];
-  name: Scalars["String"]["input"];
-  price: Scalars["Int"]["input"];
-  slug: Scalars["String"]["input"];
-};
-
 export type ProductSizeVariant = {
   __typename?: "ProductSizeVariant";
   id: Scalars["ID"]["output"];
@@ -174,12 +141,11 @@ export type Query = {
   collection_products?: Maybe<Collection>;
   collections?: Maybe<Array<Maybe<Collection>>>;
   order?: Maybe<Order>;
-  order_item?: Maybe<OrderItem>;
   product?: Maybe<Product>;
   products: Array<Product>;
   products_by_keyword: Array<Product>;
   products_similar: Array<Product>;
-  reviews?: Maybe<Review>;
+  reviews: Array<Review>;
 };
 
 export type QueryCategoryArgs = {
@@ -202,10 +168,6 @@ export type QueryCollection_ProductsArgs = {
 export type QueryOrderArgs = {
   id: Scalars["ID"]["input"];
   status?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type QueryOrder_ItemArgs = {
-  id: Scalars["ID"]["input"];
 };
 
 export type QueryProductArgs = {
@@ -357,7 +319,6 @@ export type ResolversTypes = {
   OrderItem: ResolverTypeWrapper<OrderItem>;
   Product: ResolverTypeWrapper<Product>;
   ProductColorVariant: ResolverTypeWrapper<ProductColorVariant>;
-  ProductInput: ProductInput;
   ProductSizeVariant: ResolverTypeWrapper<ProductSizeVariant>;
   Query: ResolverTypeWrapper<{}>;
   Review: ResolverTypeWrapper<Review>;
@@ -376,7 +337,6 @@ export type ResolversParentTypes = {
   OrderItem: OrderItem;
   Product: Product;
   ProductColorVariant: ProductColorVariant;
-  ProductInput: ProductInput;
   ProductSizeVariant: ProductSizeVariant;
   Query: {};
   Review: Review;
@@ -435,12 +395,6 @@ export type MutationResolvers<
       "orderId" | "productId" | "quantity"
     >
   >;
-  createProduct?: Resolver<
-    Maybe<ResolversTypes["Product"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreateProductArgs, "input">
-  >;
   createReview?: Resolver<
     Maybe<ResolversTypes["Review"]>,
     ParentType,
@@ -449,24 +403,6 @@ export type MutationResolvers<
       MutationCreateReviewArgs,
       "content" | "email" | "name" | "productId" | "rating" | "title"
     >
-  >;
-  deleteOrder?: Resolver<
-    Maybe<ResolversTypes["ID"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationDeleteOrderArgs, "id">
-  >;
-  deleteOrderItem?: Resolver<
-    Maybe<ResolversTypes["ID"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationDeleteOrderItemArgs, "id">
-  >;
-  deleteProduct?: Resolver<
-    Maybe<ResolversTypes["Product"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationDeleteProductArgs, "id">
   >;
   updateOrder?: Resolver<
     Maybe<ResolversTypes["Order"]>,
@@ -479,12 +415,6 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationUpdateOrderItemArgs, "id" | "quantity">
-  >;
-  updateProduct?: Resolver<
-    Maybe<ResolversTypes["Product"]>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationUpdateProductArgs, "id" | "input">
   >;
 };
 
@@ -618,12 +548,6 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryOrderArgs, "id">
   >;
-  order_item?: Resolver<
-    Maybe<ResolversTypes["OrderItem"]>,
-    ParentType,
-    ContextType,
-    RequireFields<QueryOrder_ItemArgs, "id">
-  >;
   product?: Resolver<
     Maybe<ResolversTypes["Product"]>,
     ParentType,
@@ -649,7 +573,7 @@ export type QueryResolvers<
     RequireFields<QueryProducts_SimilarArgs, "category" | "productId">
   >;
   reviews?: Resolver<
-    Maybe<ResolversTypes["Review"]>,
+    Array<ResolversTypes["Review"]>,
     ParentType,
     ContextType,
     RequireFields<QueryReviewsArgs, "productId">

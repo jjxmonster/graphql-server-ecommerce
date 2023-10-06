@@ -1,3 +1,4 @@
+import { Status } from "@prisma/client";
 import { prisma } from "../../../../db";
 import type { MutationResolvers } from "./../../../types.generated";
 export const updateOrder: NonNullable<
@@ -5,7 +6,7 @@ export const updateOrder: NonNullable<
 > = async (_parent, _arg, _ctx) => {
   const order = await prisma.order.update({
     where: { id: _arg.id },
-    data: { status: _arg.status },
+    data: { status: _arg.status as Status },
   });
 
   if (!order) {

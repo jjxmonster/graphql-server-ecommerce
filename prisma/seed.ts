@@ -50,7 +50,7 @@ for (let i = 0; i < productsCount; i++) {
       },
       collections: {
         connect: {
-          id: collection.id,
+          id: collection?.id as string,
         },
       },
     },
