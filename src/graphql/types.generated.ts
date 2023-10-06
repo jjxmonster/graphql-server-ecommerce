@@ -52,6 +52,7 @@ export type Mutation = {
   createOrder?: Maybe<Order>;
   createOrderItem?: Maybe<OrderItem>;
   createReview?: Maybe<Review>;
+  deleteOrderItem?: Maybe<Scalars["ID"]["output"]>;
   updateOrder?: Maybe<Order>;
   updateOrderItem?: Maybe<OrderItem>;
 };
@@ -75,6 +76,10 @@ export type MutationCreateReviewArgs = {
   productId: Scalars["String"]["input"];
   rating: Scalars["Int"]["input"];
   title: Scalars["String"]["input"];
+};
+
+export type MutationDeleteOrderItemArgs = {
+  id: Scalars["ID"]["input"];
 };
 
 export type MutationUpdateOrderArgs = {
@@ -116,6 +121,7 @@ export type Product = {
   product_color_variants: Array<Maybe<ProductColorVariant>>;
   product_size_variants: Array<Maybe<ProductSizeVariant>>;
   slug: Scalars["String"]["output"];
+  weightedRating: Scalars["Int"]["output"];
 };
 
 export type ProductColorVariant = {
@@ -176,6 +182,8 @@ export type QueryProductArgs = {
 
 export type QueryProductsArgs = {
   offset?: InputMaybe<Scalars["Int"]["input"]>;
+  sortByField?: InputMaybe<Scalars["String"]["input"]>;
+  sortOrder?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryProducts_By_KeywordArgs = {
@@ -404,6 +412,12 @@ export type MutationResolvers<
       "content" | "email" | "name" | "productId" | "rating" | "title"
     >
   >;
+  deleteOrderItem?: Resolver<
+    Maybe<ResolversTypes["ID"]>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationDeleteOrderItemArgs, "id">
+  >;
   updateOrder?: Resolver<
     Maybe<ResolversTypes["Order"]>,
     ParentType,
@@ -478,6 +492,7 @@ export type ProductResolvers<
     ContextType
   >;
   slug?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  weightedRating?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

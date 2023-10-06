@@ -3,7 +3,7 @@ import type { QueryResolvers } from "./../../../types.generated";
 export const reviews: NonNullable<QueryResolvers["reviews"]> = async (
   _parent,
   _arg,
-  _ctx,
+  _ctx
 ) => {
   const reviews = await prisma.review.findMany({
     where: {
@@ -16,7 +16,7 @@ export const reviews: NonNullable<QueryResolvers["reviews"]> = async (
     return [];
   }
 
-  return reviews.map((review) => ({
+  return reviews.map(review => ({
     id: review.id,
     title: review.title,
     rating: review.rating,
@@ -31,6 +31,7 @@ export const reviews: NonNullable<QueryResolvers["reviews"]> = async (
       description: review.product.description,
       image: review.product.image,
       slug: review.product.slug,
+      weightedRating: review.product.weightedRating,
       product_color_variants: [],
       product_size_variants: [],
       categories: [],

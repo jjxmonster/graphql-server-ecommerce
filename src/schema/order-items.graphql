@@ -15,4 +15,5 @@ type Mutation {
     color: String
   ): OrderItem
   updateOrderItem(id: ID!, quantity: Int!): OrderItem
+  deleteOrderItem(id: ID!): ID
 }

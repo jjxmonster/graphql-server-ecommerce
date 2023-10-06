@@ -68,6 +68,7 @@ export const createOrderItem: NonNullable<
       description: orderItem.product.description,
       image: orderItem.product.image,
       slug: orderItem.product.slug,
+      weightedRating: orderItem.product.weightedRating,
       product_color_variants: [],
       product_size_variants: [],
       categories: [],

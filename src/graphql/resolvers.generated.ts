@@ -5,6 +5,7 @@ import { Collection } from "./schema/resolvers/Collection";
 import { createOrder as Mutation_createOrder } from "./schema/resolvers/Mutation/createOrder";
 import { createOrderItem as Mutation_createOrderItem } from "./schema/resolvers/Mutation/createOrderItem";
 import { createReview as Mutation_createReview } from "./schema/resolvers/Mutation/createReview";
+import { deleteOrderItem as Mutation_deleteOrderItem } from "./schema/resolvers/Mutation/deleteOrderItem";
 import { updateOrder as Mutation_updateOrder } from "./schema/resolvers/Mutation/updateOrder";
 import { updateOrderItem as Mutation_updateOrderItem } from "./schema/resolvers/Mutation/updateOrderItem";
 import { Order } from "./schema/resolvers/Order";
@@ -44,6 +45,7 @@ export const resolvers: Resolvers = {
     createOrder: Mutation_createOrder,
     createOrderItem: Mutation_createOrderItem,
     createReview: Mutation_createReview,
+    deleteOrderItem: Mutation_deleteOrderItem,
     updateOrder: Mutation_updateOrder,
     updateOrderItem: Mutation_updateOrderItem,
   },

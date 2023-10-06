@@ -15,6 +15,27 @@ export const createReview: NonNullable<
     include: { product: true },
   });
 
+  const reviewsForProduct = await prisma.review.findMany({
+    where: {
+      productId: _arg.productId,
+    },
+  });
+
+  const totalReviews = reviewsForProduct.length;
+  const totalRating = reviewsForProduct.reduce(
+    (acc, review) => acc + review.rating,
+    0
+  );
+  const weightedRating = totalRating / totalReviews;
+  await prisma.product.update({
+    where: {
+      id: _arg.productId,
+    },
+    data: {
+      weightedRating: weightedRating,
+    },
+  });
+
   if (!review) {
     return null;
   }
@@ -27,6 +48,7 @@ export const createReview: NonNullable<
       description: review.product.description,
       image: review.product.image,
       slug: review.product.slug,
+      weightedRating: review.product.weightedRating,
       product_color_variants: [],
       product_size_variants: [],
       categories: [],

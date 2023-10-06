@@ -15,9 +15,9 @@ export const products: NonNullable<QueryResolvers["products"]> = async (
         categories: true,
         collections: true,
       },
-      // orderBy: {
-      //   [_arg.sort?.field as string]: _arg.sort?.order,
-      // },
+      orderBy: {
+        [_arg.sortByField as string]: _arg.sortOrder,
+      },
     });
   } else {
     products = await prisma.product.findMany({

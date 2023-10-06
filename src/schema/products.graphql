@@ -6,18 +6,15 @@ type Product {
   price: Int!
   image: String!
   categories: [Category!]!
+  weightedRating: Int!
   collections: [Collection!]!
   product_color_variants: [ProductColorVariant]!
   product_size_variants: [ProductSizeVariant]!
 }
 
 type Query {
-  products(offset: Int): [Product!]!
+  products(offset: Int, sortByField: String, sortOrder: String): [Product!]!
   product(id: ID!): Product
   products_similar(productId: ID!, category: String!): [Product!]!
   products_by_keyword(keyword: String!): [Product!]!
 }
-# type SortInput {
-#   field: String!
-#   order: String!
-# }
