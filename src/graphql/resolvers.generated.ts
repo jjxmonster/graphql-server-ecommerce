@@ -31,7 +31,6 @@ import { products_by_keyword as Query_products_by_keyword } from "./schema/resol
 import { products_similar as Query_products_similar } from "./schema/resolvers/Query/products_similar";
 import { reviews as Query_reviews } from "./schema/resolvers/Query/reviews";
 import { Review } from "./schema/resolvers/Review";
-import { SortInput } from "./schema/resolvers/SortInput";
 export const resolvers: Resolvers = {
   Query: {
     categories: Query_categories,
@@ -69,5 +68,4 @@ export const resolvers: Resolvers = {
   ProductColorVariant: ProductColorVariant,
   ProductSizeVariant: ProductSizeVariant,
   Review: Review,
-  SortInput: SortInput,
 };

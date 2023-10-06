@@ -214,7 +214,6 @@ export type QueryProductArgs = {
 
 export type QueryProductsArgs = {
   offset?: InputMaybe<Scalars["Int"]["input"]>;
-  sort?: InputMaybe<SortInput>;
 };
 
 export type QueryProducts_By_KeywordArgs = {
@@ -239,12 +238,6 @@ export type Review = {
   product: Product;
   rating: Scalars["Int"]["output"];
   title: Scalars["String"]["output"];
-};
-
-export type SortInput = {
-  __typename?: "SortInput";
-  field: Scalars["String"]["output"];
-  order: Scalars["String"]["output"];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -368,7 +361,6 @@ export type ResolversTypes = {
   ProductSizeVariant: ResolverTypeWrapper<ProductSizeVariant>;
   Query: ResolverTypeWrapper<{}>;
   Review: ResolverTypeWrapper<Review>;
-  SortInput: ResolverTypeWrapper<SortInput>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
@@ -388,7 +380,6 @@ export type ResolversParentTypes = {
   ProductSizeVariant: ProductSizeVariant;
   Query: {};
   Review: Review;
-  SortInput: SortInput;
   Boolean: Scalars["Boolean"]["output"];
 };
 
@@ -680,16 +671,6 @@ export type ReviewResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type SortInputResolvers<
-  ContextType = any,
-  ParentType extends
-    ResolversParentTypes["SortInput"] = ResolversParentTypes["SortInput"],
-> = {
-  field?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  order?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type Resolvers<ContextType = any> = {
   Category?: CategoryResolvers<ContextType>;
   Collection?: CollectionResolvers<ContextType>;
@@ -701,5 +682,4 @@ export type Resolvers<ContextType = any> = {
   ProductSizeVariant?: ProductSizeVariantResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Review?: ReviewResolvers<ContextType>;
-  SortInput?: SortInputResolvers<ContextType>;
 };
