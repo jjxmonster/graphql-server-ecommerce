@@ -3,7 +3,7 @@ import type { QueryResolvers } from "./../../../types.generated";
 export const collections: NonNullable<QueryResolvers["collections"]> = async (
   _parent,
   _arg,
-  _ctx
+  _ctx,
 ) => {
   const collections = await prisma.collection.findMany({
     include: {
@@ -11,9 +11,9 @@ export const collections: NonNullable<QueryResolvers["collections"]> = async (
     },
   });
 
-  return collections.map(collection => ({
+  return collections.map((collection) => ({
     ...collection,
-    products: collection.products.map(product => ({
+    products: collection.products.map((product) => ({
       ...product,
       product_size_variants: [],
       product_color_variants: [],

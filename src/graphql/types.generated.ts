@@ -79,7 +79,9 @@ export type MutationCreateProductArgs = {
 
 export type MutationCreateReviewArgs = {
   content: Scalars["String"]["input"];
-  productId?: InputMaybe<Scalars["Int"]["input"]>;
+  email: Scalars["String"]["input"];
+  name: Scalars["String"]["input"];
+  productId: Scalars["String"]["input"];
   rating: Scalars["Int"]["input"];
   title: Scalars["String"]["input"];
 };
@@ -212,6 +214,7 @@ export type QueryProductArgs = {
 
 export type QueryProductsArgs = {
   offset?: InputMaybe<Scalars["Int"]["input"]>;
+  sort?: InputMaybe<SortInput>;
 };
 
 export type QueryProducts_By_KeywordArgs = {
@@ -230,10 +233,18 @@ export type QueryReviewsArgs = {
 export type Review = {
   __typename?: "Review";
   content: Scalars["String"]["output"];
+  email: Scalars["String"]["output"];
   id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
   product: Product;
   rating: Scalars["Int"]["output"];
   title: Scalars["String"]["output"];
+};
+
+export type SortInput = {
+  __typename?: "SortInput";
+  field: Scalars["String"]["output"];
+  order: Scalars["String"]["output"];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -357,6 +368,7 @@ export type ResolversTypes = {
   ProductSizeVariant: ResolverTypeWrapper<ProductSizeVariant>;
   Query: ResolverTypeWrapper<{}>;
   Review: ResolverTypeWrapper<Review>;
+  SortInput: ResolverTypeWrapper<SortInput>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
@@ -376,6 +388,7 @@ export type ResolversParentTypes = {
   ProductSizeVariant: ProductSizeVariant;
   Query: {};
   Review: Review;
+  SortInput: SortInput;
   Boolean: Scalars["Boolean"]["output"];
 };
 
@@ -441,7 +454,10 @@ export type MutationResolvers<
     Maybe<ResolversTypes["Review"]>,
     ParentType,
     ContextType,
-    RequireFields<MutationCreateReviewArgs, "content" | "rating" | "title">
+    RequireFields<
+      MutationCreateReviewArgs,
+      "content" | "email" | "name" | "productId" | "rating" | "title"
+    >
   >;
   deleteOrder?: Resolver<
     Maybe<ResolversTypes["ID"]>,
@@ -655,10 +671,22 @@ export type ReviewResolvers<
     ResolversParentTypes["Review"] = ResolversParentTypes["Review"],
 > = {
   content?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   product?: Resolver<ResolversTypes["Product"], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
   title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SortInputResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes["SortInput"] = ResolversParentTypes["SortInput"],
+> = {
+  field?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  order?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -673,4 +701,5 @@ export type Resolvers<ContextType = any> = {
   ProductSizeVariant?: ProductSizeVariantResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Review?: ReviewResolvers<ContextType>;
+  SortInput?: SortInputResolvers<ContextType>;
 };

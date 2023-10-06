@@ -24,7 +24,13 @@ export const createOrderItem: NonNullable<
       include: { product: true },
     });
   } else {
-    console.log(_arg, "DATA");
+    if (_arg.quantity < 1) {
+      orderItem = await prisma.orderItem.delete({
+        where: {
+          id: _arg.productId,
+        },
+      });
+    }
     orderItem = await prisma.orderItem.create({
       data: {
         orderId: _arg.orderId,

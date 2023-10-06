@@ -17,6 +17,7 @@ model Product {
   categories           Category[]
   collections          Collection[]
   orderItems           OrderItem[]
+  reviews              Review[]
   productSizeVariants  ProductSizeVariant[]
   productColorVariants ProductColorVariant[]
 
@@ -74,6 +75,17 @@ model ProductColorVariant {
   id        String  @id @default(cuid())
   name      String
   slug      String
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Review {
+  id        String  @id @default(cuid())
+  title     String
+  content   String
+  rating    Int
+  email     String
+  name      String
   productId String
   product   Product @relation(fields: [productId], references: [id])
 }

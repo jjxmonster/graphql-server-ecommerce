@@ -3,6 +3,8 @@ type Review {
   title: String!
   content: String!
   rating: Int!
+  email: String!
+  name: String!
   product: Product!
 }
 
@@ -15,6 +17,8 @@ type Mutation {
     title: String!
     content: String!
     rating: Int!
-    productId: Int
+    productId: String!
+    email: String!
+    name: String!
   ): Review
 }

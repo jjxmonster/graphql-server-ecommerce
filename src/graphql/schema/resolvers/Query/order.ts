@@ -4,7 +4,7 @@ import type { QueryResolvers } from "./../../../types.generated";
 export const order: NonNullable<QueryResolvers["order"]> = async (
   _parent,
   _arg,
-  _ctx
+  _ctx,
 ) => {
   let order;
 
@@ -28,7 +28,7 @@ export const order: NonNullable<QueryResolvers["order"]> = async (
     id: order.id,
     total: order.total,
     status: order.status,
-    orderItems: order.orderItems.map(orderItem => ({
+    orderItems: order.orderItems.map((orderItem) => ({
       id: orderItem.id,
       quantity: orderItem.quantity,
       size: orderItem.size,
