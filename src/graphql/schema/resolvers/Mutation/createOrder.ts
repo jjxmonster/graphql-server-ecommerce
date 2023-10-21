@@ -6,6 +6,7 @@ export const createOrder: NonNullable<
   const order = await prisma.order.create({
     data: {
       total: _arg.total,
+      email: null,
       status: "DRAFT",
     },
   });
@@ -18,6 +19,7 @@ export const createOrder: NonNullable<
     id: order.id,
     total: order.total,
     status: order.status,
+    email: order.email,
     orderItems: [],
   };
 };

@@ -83,6 +83,7 @@ export type MutationDeleteOrderItemArgs = {
 };
 
 export type MutationUpdateOrderArgs = {
+  email?: InputMaybe<Scalars["String"]["input"]>;
   id: Scalars["ID"]["input"];
   status?: InputMaybe<Scalars["String"]["input"]>;
 };
@@ -94,6 +95,7 @@ export type MutationUpdateOrderItemArgs = {
 
 export type Order = {
   __typename?: "Order";
+  email?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["ID"]["output"];
   orderItems: Array<OrderItem>;
   status?: Maybe<Scalars["String"]["output"]>;
@@ -437,6 +439,7 @@ export type OrderResolvers<
   ParentType extends
     ResolversParentTypes["Order"] = ResolversParentTypes["Order"],
 > = {
+  email?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   orderItems?: Resolver<
     Array<ResolversTypes["OrderItem"]>,

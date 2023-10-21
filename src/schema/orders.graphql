@@ -2,6 +2,7 @@ type Order {
   id: ID!
   total: Int!
   status: String
+  email: String
   orderItems: [OrderItem!]!
 }
 
@@ -11,5 +12,5 @@ type Query {
 
 type Mutation {
   createOrder(total: Int!): Order
-  updateOrder(id: ID!, status: String): Order
+  updateOrder(id: ID!, status: String, email: String): Order
 }

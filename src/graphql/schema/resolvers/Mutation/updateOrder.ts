@@ -6,7 +6,7 @@ export const updateOrder: NonNullable<
 > = async (_parent, _arg, _ctx) => {
   const order = await prisma.order.update({
     where: { id: _arg.id },
-    data: { status: _arg.status as Status },
+    data: { status: _arg.status as Status, email: _arg.email },
   });
 
   if (!order) {

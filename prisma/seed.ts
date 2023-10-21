@@ -10,17 +10,17 @@ const sizes = ["S", "M", "XL"];
 
 const category = await prisma.category.create({
   data: {
-    name: "T-Shirts",
-    slug: "t-shirts",
+    name: "Hoodies",
+    slug: "hoodies",
   },
 });
 
-// const collection = await prisma.collection.create({
-//   data: {
-//     slug: "winter-2023",
-//     name: "Winter 2023",
-//   },
-// });
+const collection = await prisma.collection.create({
+  data: {
+    slug: "winter-2023",
+    name: "Winter 2023",
+  },
+});
 
 for (let i = 0; i < productsCount; i++) {
   const name = faker.commerce.productName();
@@ -47,6 +47,11 @@ for (let i = 0; i < productsCount; i++) {
       categories: {
         connect: {
           id: category.id,
+        },
+      },
+      collections: {
+        connect: {
+          id: collection.id,
         },
       },
     },

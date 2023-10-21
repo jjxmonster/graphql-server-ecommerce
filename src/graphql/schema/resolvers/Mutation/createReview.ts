@@ -24,7 +24,7 @@ export const createReview: NonNullable<
   const totalReviews = reviewsForProduct.length;
   const totalRating = reviewsForProduct.reduce(
     (acc, review) => acc + review.rating,
-    0
+    0,
   );
   const weightedRating = totalRating / totalReviews;
   await prisma.product.update({
