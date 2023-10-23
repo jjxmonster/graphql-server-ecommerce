@@ -20,6 +20,7 @@ import { collection as Query_collection } from "./schema/resolvers/Query/collect
 import { collection_products as Query_collection_products } from "./schema/resolvers/Query/collection_products";
 import { collections as Query_collections } from "./schema/resolvers/Query/collections";
 import { order as Query_order } from "./schema/resolvers/Query/order";
+import { orders as Query_orders } from "./schema/resolvers/Query/orders";
 import { product as Query_product } from "./schema/resolvers/Query/product";
 import { products as Query_products } from "./schema/resolvers/Query/products";
 import { products_by_keyword as Query_products_by_keyword } from "./schema/resolvers/Query/products_by_keyword";
@@ -35,6 +36,7 @@ export const resolvers: Resolvers = {
     collection_products: Query_collection_products,
     collections: Query_collections,
     order: Query_order,
+    orders: Query_orders,
     product: Query_product,
     products: Query_products,
     products_by_keyword: Query_products_by_keyword,

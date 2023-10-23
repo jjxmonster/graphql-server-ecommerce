@@ -149,6 +149,7 @@ export type Query = {
   collection_products?: Maybe<Collection>;
   collections?: Maybe<Array<Maybe<Collection>>>;
   order?: Maybe<Order>;
+  orders: Array<Maybe<Order>>;
   product?: Maybe<Product>;
   products: Array<Product>;
   products_by_keyword: Array<Product>;
@@ -176,6 +177,10 @@ export type QueryCollection_ProductsArgs = {
 export type QueryOrderArgs = {
   id: Scalars["ID"]["input"];
   status?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type QueryOrdersArgs = {
+  email?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryProductArgs = {
@@ -565,6 +570,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QueryOrderArgs, "id">
+  >;
+  orders?: Resolver<
+    Array<Maybe<ResolversTypes["Order"]>>,
+    ParentType,
+    ContextType,
+    Partial<QueryOrdersArgs>
   >;
   product?: Resolver<
     Maybe<ResolversTypes["Product"]>,

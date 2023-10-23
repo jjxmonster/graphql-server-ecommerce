@@ -17,21 +17,9 @@ export const reviews: NonNullable<QueryResolvers["reviews"]> = async (
   }
 
   return reviews.map((review) => ({
-    id: review.id,
-    title: review.title,
-    rating: review.rating,
-    content: review.content,
-    productId: review.productId,
-    name: review.name,
-    email: review.email,
+    ...review,
     product: {
-      id: review.productId,
-      name: review.product.name,
-      price: review.product.price,
-      description: review.product.description,
-      image: review.product.image,
-      slug: review.product.slug,
-      weightedRating: review.product.weightedRating,
+      ...review.product,
       product_color_variants: [],
       product_size_variants: [],
       categories: [],

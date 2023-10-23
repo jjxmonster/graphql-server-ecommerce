@@ -25,22 +25,11 @@ export const order: NonNullable<QueryResolvers["order"]> = async (
   }
 
   return {
-    id: order.id,
-    total: order.total,
-    status: order.status,
+    ...order,
     orderItems: order.orderItems.map((orderItem) => ({
-      id: orderItem.id,
-      quantity: orderItem.quantity,
-      size: orderItem.size,
-      color: orderItem.color,
+      ...orderItem,
       product: {
-        id: orderItem.productId,
-        name: orderItem.product.name,
-        price: orderItem.product.price,
-        description: orderItem.product.description,
-        image: orderItem.product.image,
-        slug: orderItem.product.slug,
-        weightedRating: orderItem.product.weightedRating,
+        ...orderItem.product,
         product_color_variants: [],
         product_size_variants: [],
         categories: [],
