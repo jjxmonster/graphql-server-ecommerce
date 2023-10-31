@@ -1,4 +1,5 @@
 import { prisma } from "../../../../db";
+import { calculateTotalForOrder } from "../../../../utils";
 import type { MutationResolvers } from "./../../../types.generated";
 export const updateOrderItem: NonNullable<
   MutationResolvers["updateOrderItem"]
@@ -16,6 +17,8 @@ export const updateOrderItem: NonNullable<
   if (!orderItem) {
     return null;
   }
+
+  await calculateTotalForOrder(orderItem.orderId);
 
   return {
     id: orderItem.id,

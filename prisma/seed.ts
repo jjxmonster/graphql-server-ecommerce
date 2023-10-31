@@ -8,12 +8,26 @@ const productsCount = 5;
 const colors = ["Black", "White"];
 const sizes = ["S", "M", "XL"];
 
-const category = await prisma.category.create({
-  data: {
+const category = await prisma.category.findFirst({
+  where: {
     name: "Hoodies",
-    slug: "hoodies",
   },
 });
+
+const createReviews = async (productId: string) => {
+  for (let i = 0; i < 5; i++) {
+    const review = await prisma.review.create({
+      data: {
+        title: faker.lorem.words(3),
+        content: faker.lorem.paragraph(),
+        rating: Math.floor(Math.random() * 5) + 1,
+        productId,
+        email: faker.internet.email(),
+        name: faker.person.firstName(),
+      },
+    });
+  }
+};
 
 const collection = await prisma.collection.create({
   data: {
@@ -31,7 +45,7 @@ for (let i = 0; i < productsCount; i++) {
       slug: faker.helpers.slugify(name).toLowerCase(),
       description: faker.commerce.productDescription(),
       price: Number(faker.commerce.price()) * 100,
-      image: faker.image.url(),
+      image: faker.image.imageUrl(),
       productSizeVariants: {
         create: sizes.map(size => ({
           name: size,
@@ -56,6 +70,6 @@ for (let i = 0; i < productsCount; i++) {
       },
     },
   });
-
+  createReviews(createdProduct.id);
   console.log(`Created product with id: ${createdProduct.id}`);
 }
