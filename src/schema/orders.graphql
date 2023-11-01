@@ -8,7 +8,7 @@ type Order {
 
 type Query {
   order(id: ID!, status: String): Order
-  orders(email: String): [Order]!
+  orders(email: String): [Order!]!
 }
 
 type Mutation {

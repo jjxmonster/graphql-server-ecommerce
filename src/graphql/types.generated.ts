@@ -149,7 +149,7 @@ export type Query = {
   collection_products?: Maybe<Collection>;
   collections?: Maybe<Array<Maybe<Collection>>>;
   order?: Maybe<Order>;
-  orders: Array<Maybe<Order>>;
+  orders: Array<Order>;
   product?: Maybe<Product>;
   products: Array<Product>;
   products_by_keyword: Array<Product>;
@@ -572,7 +572,7 @@ export type QueryResolvers<
     RequireFields<QueryOrderArgs, "id">
   >;
   orders?: Resolver<
-    Array<Maybe<ResolversTypes["Order"]>>,
+    Array<ResolversTypes["Order"]>,
     ParentType,
     ContextType,
     Partial<QueryOrdersArgs>
